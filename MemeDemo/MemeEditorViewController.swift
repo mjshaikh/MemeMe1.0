@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeDemo
 //
 //  Created by Mohammed Shaikh on 2015-12-02.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
                       UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
@@ -154,19 +154,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 //Dismiss Activity ViewController
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
-            
             else {
-                // Something went wrong.
+                // Something went wrong so we give an alert message to the user
+                
                 self.dismissViewControllerAnimated(true, completion: nil)
+                
+                let alertView = UIAlertController(title: "Oops", message: "There was an error sharing the meme. Please try again", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                alertView.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                self.presentViewController(alertView, animated: true, completion: nil)
             }
-
         }
-        
         
         // We set the modalPresentationStyle to Popover in case of an iPad.
         viewController.modalPresentationStyle = UIModalPresentationStyle.Popover
         
-        self.presentViewController(viewController, animated: true, completion: nil)
+        presentViewController(viewController, animated: true, completion: nil)
         
         // we assign our sender button to popover's barButtonItem property as a position to pop out from the button
         let popover = viewController.popoverPresentationController
@@ -208,7 +211,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = sourceType
-        self.presentViewController(pickerController, animated: true, completion: nil)
+        presentViewController(pickerController, animated: true, completion: nil)
     }
     
     
@@ -222,12 +225,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imageView.image = image
             shareButton.enabled = true
         }
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     
